@@ -73,13 +73,14 @@ func Load() *Config {
 	}
 
 	//Set the adguard password based on the input configuration
-	if cfg.PasswordFromFile == true {
+	if cfg.PasswordFromFile {
 		secret, err := ioutil.ReadFile(cfg.AdguardPassword)
 		if err != nil {
 			log.Printf("unable to read AdguardPassword from %s due to %s", cfg.AdguardPassword, err)
 			os.Exit(1)
 		}
-		cfg.AdguardPassword = string(secret[0 : len(secret)-1])
+
+		cfg.AdguardPassword = string(secret)
 	}
 
 	cfg.show()
